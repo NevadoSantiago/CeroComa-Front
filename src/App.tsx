@@ -4,6 +4,7 @@ import { EntradasPage } from "./pages/EntradasPage/EntradasPage";
 import { GaleriaPage } from "./pages/GaleriaPage/GaleriaPage";
 import { AdminPage } from "./pages/AdminPage/AdminPage";
 import { DoorScanner } from "./pages/DoorScanner/DoorScanner";
+import { StaffHome } from "./pages/StaffHome/StaffHome";
 import { PagoResultado } from "./pages/PagoResultado/PagoResultado";
 import { PlaceholderPage } from "./pages/PlaceholderPage/PlaceholderPage";
 
@@ -19,6 +20,7 @@ function App() {
       <Route path="/pago/exito" element={<PagoResultado status="exito" />} />
       <Route path="/pago/pendiente" element={<PagoResultado status="pendiente" />} />
       <Route path="/pago/error" element={<PagoResultado status="error" />} />
+      <Route path="/staff" element={<StaffHome />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/puerta" element={<DoorScanner />} />
       <Route path="*" element={<Navigate to="/" replace />} />

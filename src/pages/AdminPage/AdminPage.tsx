@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { fetchOrders, type OrderSummary } from "../../api/admin";
 import styles from "./AdminPage.module.css";
 
@@ -91,9 +92,9 @@ export function AdminPage() {
     <main className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>Ventas · CERO COMA</h1>
-        <button className={styles.logout} onClick={logout}>
-          Salir
-        </button>
+        <Link to="/staff" className={styles.logout}>
+          ← Menú
+        </Link>
       </header>
 
       <div className={styles.stats}>

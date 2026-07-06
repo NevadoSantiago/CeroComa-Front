@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Html5Qrcode } from "html5-qrcode";
 import { admit, lookup, type CheckinResponse } from "../../api/checkin";
 import styles from "./DoorScanner.module.css";
@@ -122,6 +123,9 @@ export function DoorScanner() {
 
   return (
     <main className={styles.page}>
+      <Link to="/staff" className={styles.menuLink}>
+        ← Menú
+      </Link>
       {/* El div de la cámara queda siempre montado; se oculta al mostrar un resultado. */}
       <div className={styles.scanArea} style={{ display: result ? "none" : "block" }}>
         <p className={styles.hint}>Apuntá al QR de la entrada</p>
