@@ -1,0 +1,7 @@
+/* Columna mobile-first centrada. En desktop queda centrada sobre el fondo crema
+   (el diseño es solo mobile; el layout desktop rico lo definimos aparte). */
+.page {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-bottom: 4rem;
+}

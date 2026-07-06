@@ -1,0 +1,27 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--maxw);
+  min-height: 100svh;
+  margin-inline: auto;
+  padding: 1.5rem var(--edge);
+}
+
+.back {
+  font-size: 0.875rem;
+  letter-spacing: var(--tracking-wordmark);
+}
+.back:hover {
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 3rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.soon {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+}

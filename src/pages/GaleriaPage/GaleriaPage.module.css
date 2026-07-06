@@ -1,0 +1,24 @@
+/* Vista inmersiva: el canvas ocupa toda la pantalla; el link de volver flota
+   arriba en un chip claro para leerse sobre cualquier foto. */
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+}
+
+.back {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-size: 0.8125rem;
+  letter-spacing: var(--tracking-wordmark);
+}
+.back:hover {
+  color: var(--color-accent);
+}

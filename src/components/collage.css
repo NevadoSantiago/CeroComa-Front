@@ -1,0 +1,52 @@
+.canvas-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  cursor: grab;
+  /* El gesto de arrastre panea el plano; no dejamos que scrollee la página. */
+  touch-action: none;
+  user-select: none;
+  background: #0e0e11;
+}
+
+.canvas-viewport.is-grabbing {
+  cursor: grabbing;
+}
+
+/* Contenedor que se traslada con el pan (una sola capa que se mueve). */
+.canvas-world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Avisamos al navegador que este nodo va a transformarse: capa propia, drag fluido. */
+  will-change: transform;
+}
+
+/* Cada copia del collage, ubicada en la grilla toroidal. */
+.canvas-tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.canvas-item {
+  position: absolute;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #1c1c22;
+  -webkit-user-drag: none;
+}
+
+.canvas-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #888;
+}
+
+.canvas-status--error {
+  color: #c0392b;
+}

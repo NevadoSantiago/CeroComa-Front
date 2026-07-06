@@ -1,0 +1,20 @@
+/* Design tokens extraídos del Figma (CERO COMA). Única fuente de verdad visual. */
+:root {
+  /* Paleta */
+  --color-bg: #fffdf5; /* crema/hueso de fondo */
+  --color-ink: #000000; /* texto y hairlines */
+  --color-accent: #dd4b2e; /* rojo del logo (aprox — ajustable) */
+  --color-rule: #000000; /* líneas divisorias de la nav */
+  --color-muted: rgba(0, 0, 0, 0.55); /* labels secundarios */
+
+  /* Tipografía */
+  --font-serif: "Manuale", Georgia, "Times New Roman", serif;
+  --fs-body: 1rem; /* 16px */
+  --fs-strip: 1.25rem; /* 20px */
+  --tracking-wordmark: 0.08em;
+
+  /* Layout (márgenes y gaps del diseño mobile) */
+  --edge: 1.5625rem; /* 25px, margen lateral */
+  --gap: 0.6875rem; /* 11px, separación entre fotos del header */
+  --maxw: 480px; /* ancho máx del contenido: mobile-first centrado */
+}

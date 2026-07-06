@@ -1,0 +1,31 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Fotos originales / descargas: redundantes con gallery-thumbs, pesan GB.
+# NO van al repo ni al deploy. Solo gallery-thumbs (lo que usa la app) se versiona.
+public/gallery1/
+public/gallery2/
+public/o,4/
+public/*.zip
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

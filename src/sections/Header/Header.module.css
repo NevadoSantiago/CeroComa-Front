@@ -1,0 +1,28 @@
+.header {
+  padding: 2.5rem var(--edge) 0;
+}
+
+.wordmark {
+  margin: 0 0 1.75rem;
+  font-size: var(--fs-body);
+  letter-spacing: var(--tracking-wordmark);
+}
+
+/* Fila de dos fotos alineadas arriba: una apaisada grande + una retrato chica. */
+.photos {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap);
+}
+
+.crowd {
+  width: 62%;
+  aspect-ratio: 208 / 139;
+  object-fit: cover;
+}
+
+.red {
+  width: 35%;
+  aspect-ratio: 119 / 167;
+  object-fit: cover;
+}

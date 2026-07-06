@@ -1,0 +1,168 @@
+.page {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: 1.5rem var(--edge) 4rem;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  letter-spacing: var(--tracking-wordmark);
+}
+.back:hover {
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0 0 1.5rem;
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Ficha del evento: filas con hairlines, mismo lenguaje que la nav. */
+.info {
+  margin: 0 0 2.5rem;
+  border-top: 1px solid var(--color-rule);
+}
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+.infoRow dt {
+  margin: 0;
+  color: var(--color-muted);
+}
+.infoRow dd {
+  margin: 0;
+  text-align: right;
+}
+
+.ticket {
+  margin-bottom: 1rem;
+}
+.ticketHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.ticketLabel,
+.ticketPrice {
+  font-size: 1.125rem;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.stepperLabel {
+  color: var(--color-muted);
+}
+.stepperControls {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.stepBtn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 50%;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.stepBtn:hover {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+.qty {
+  min-width: 1.5ch;
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2.75rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.fieldLabel {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+/* Inputs con subrayado, coherente con el look editorial. */
+.input {
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  background: transparent;
+  padding: 0.4rem 0;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  color: var(--color-ink);
+}
+.input:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-rule);
+  font-size: 1.125rem;
+}
+.totalValue {
+  font-weight: 600;
+}
+
+.cta {
+  border: 0;
+  border-radius: 2px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  padding: 0.9rem;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.cta:hover {
+  filter: brightness(0.92);
+}
+.cta:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
+.note {
+  margin: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
