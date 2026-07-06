@@ -55,12 +55,6 @@ export function AdminPage() {
     setPassword("");
   };
 
-  const logout = () => {
-    sessionStorage.removeItem(TOKEN_KEY);
-    setToken(null);
-    setOrders([]);
-  };
-
   if (!token) {
     return (
       <main className={styles.login}>
