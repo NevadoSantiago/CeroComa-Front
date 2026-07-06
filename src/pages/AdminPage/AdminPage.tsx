@@ -3,6 +3,13 @@ import { fetchOrders, type OrderSummary } from "../../api/admin";
 import styles from "./AdminPage.module.css";
 
 const TOKEN_KEY = "cerocoma_admin_token";
+
+const STATUS_LABELS: Record<string, string> = {
+  PENDING: "Pendiente",
+  PAID: "Pagada",
+  FAILED: "Rechazada",
+  EXPIRED: "Expirada",
+};
 const ars = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "ARS",
@@ -133,7 +140,7 @@ export function AdminPage() {
                 <td>{ars.format(o.totalAmount)}</td>
                 <td>
                   <span className={`${styles.badge} ${styles[o.status.toLowerCase()] ?? ""}`}>
-                    {o.status}
+                    {STATUS_LABELS[o.status] ?? o.status}
                   </span>
                 </td>
                 <td>
