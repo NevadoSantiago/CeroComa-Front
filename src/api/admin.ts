@@ -9,7 +9,7 @@ export interface OrderSummary {
   status: string;
   createdAt: string;
   paidAt: string | null;
-  ticketCount: number;
+  admittedCount: number;
 }
 
 /** Lista las ventas. Lanza "UNAUTHORIZED" si el token es inválido (401). */

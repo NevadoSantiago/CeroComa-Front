@@ -77,7 +77,8 @@ export function AdminPage() {
 
   const paid = orders.filter((o) => o.status === "PAID");
   const revenue = paid.reduce((sum, o) => sum + o.totalAmount, 0);
-  const ticketsSold = paid.reduce((sum, o) => sum + o.ticketCount, 0);
+  const entradasVendidas = paid.reduce((sum, o) => sum + o.quantity, 0);
+  const ingresaron = paid.reduce((sum, o) => sum + o.admittedCount, 0);
 
   return (
     <main className={styles.page}>
@@ -94,8 +95,12 @@ export function AdminPage() {
           <small>Recaudado</small>
         </div>
         <div className={styles.stat}>
-          <span>{ticketsSold}</span>
+          <span>{entradasVendidas}</span>
           <small>Entradas vendidas</small>
+        </div>
+        <div className={styles.stat}>
+          <span>{ingresaron}</span>
+          <small>Ingresaron</small>
         </div>
         <div className={styles.stat}>
           <span>{orders.length}</span>
@@ -115,7 +120,7 @@ export function AdminPage() {
               <th>Cant.</th>
               <th>Total</th>
               <th>Estado</th>
-              <th>Entradas</th>
+              <th>Ingresaron</th>
               <th>Fecha</th>
             </tr>
           </thead>
@@ -131,7 +136,9 @@ export function AdminPage() {
                     {o.status}
                   </span>
                 </td>
-                <td>{o.ticketCount}</td>
+                <td>
+                  {o.admittedCount}/{o.quantity}
+                </td>
                 <td>{new Date(o.createdAt).toLocaleString("es-AR")}</td>
               </tr>
             ))}
