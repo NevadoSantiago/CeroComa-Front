@@ -119,6 +119,7 @@ export function AdminPage() {
             <tr>
               <th>Comprador</th>
               <th>Email</th>
+              <th>Banda</th>
               <th>Cant.</th>
               <th>Total</th>
               <th>Estado</th>
@@ -131,6 +132,7 @@ export function AdminPage() {
               <tr key={o.id}>
                 <td>{o.buyerName}</td>
                 <td>{o.buyerEmail}</td>
+                <td>{o.preferredBand || "—"}</td>
                 <td>{o.quantity}</td>
                 <td>{ars.format(o.totalAmount)}</td>
                 <td>
@@ -146,7 +148,7 @@ export function AdminPage() {
             ))}
             {!loading && orders.length === 0 && (
               <tr>
-                <td colSpan={7} className={styles.muted}>
+                <td colSpan={8} className={styles.muted}>
                   Todavía no hay ventas.
                 </td>
               </tr>

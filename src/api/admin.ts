@@ -4,6 +4,7 @@ export interface OrderSummary {
   id: string;
   buyerName: string;
   buyerEmail: string;
+  preferredBand: string | null;
   quantity: number;
   totalAmount: number;
   status: string;
