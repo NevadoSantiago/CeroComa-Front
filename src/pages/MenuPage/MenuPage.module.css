@@ -1,0 +1,21 @@
+.page {
+  max-width: 520px;
+  margin-inline: auto;
+  padding: 1.5rem var(--edge) 4rem;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  letter-spacing: var(--tracking-wordmark);
+}
+.back:hover {
+  color: var(--color-accent);
+}
+
+.menu {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
 import { EntradasPage } from "./pages/EntradasPage/EntradasPage";
 import { GaleriaPage } from "./pages/GaleriaPage/GaleriaPage";
+import { MenuPage } from "./pages/MenuPage/MenuPage";
 import { AdminPage } from "./pages/AdminPage/AdminPage";
 import { DoorScanner } from "./pages/DoorScanner/DoorScanner";
 import { StaffHome } from "./pages/StaffHome/StaffHome";
@@ -13,7 +14,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/entradas" element={<EntradasPage />} />
-      <Route path="/menu" element={<PlaceholderPage title="Menú" />} />
+      <Route path="/menu" element={<MenuPage />} />
       <Route path="/lineup" element={<PlaceholderPage title="Lineup" />} />
       <Route path="/galeria" element={<GaleriaPage />} />
       <Route path="/about" element={<PlaceholderPage title="About" />} />
