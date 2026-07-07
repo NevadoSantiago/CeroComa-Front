@@ -5,3 +5,22 @@
   margin-inline: auto;
   padding-bottom: 4rem;
 }
+
+/* Acceso staff: un ícono casi invisible, bien al fondo. No es para el público:
+   quien lo necesita sabe que está ahí. */
+.footer {
+  margin-top: 6rem;
+  padding: 0 var(--edge) 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+.staffLink {
+  display: inline-flex;
+  color: var(--color-muted);
+  opacity: 0.08;
+  transition: opacity 0.2s ease;
+}
+.staffLink:hover,
+.staffLink:focus-visible {
+  opacity: 0.6;
+}
