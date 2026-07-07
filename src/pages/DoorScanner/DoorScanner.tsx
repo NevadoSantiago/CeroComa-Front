@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Html5Qrcode } from "html5-qrcode";
-import { admit, lookup, type CheckinResponse } from "../../api/checkin";
+import {
+  admit,
+  lookup,
+  lookupByEmail,
+  type CheckinResponse,
+  type EmailMatch,
+} from "../../api/checkin";
 import styles from "./DoorScanner.module.css";
 
 const TOKEN_KEY = "cerocoma_admin_token"; // misma contraseña que el panel
@@ -20,6 +26,10 @@ export function DoorScanner() {
   const [error, setError] = useState<string | null>(null);
   // Tras admitir: muestra el tilde y vuelve al menú de staff.
   const [admitted, setAdmitted] = useState(false);
+  // Ingreso manual por mail (fallback sin QR / si falla la cámara).
+  const [emailOpen, setEmailOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [matches, setMatches] = useState<EmailMatch[] | null>(null);
 
   const logout = () => {
     sessionStorage.removeItem(TOKEN_KEY);
@@ -90,10 +100,50 @@ export function DoorScanner() {
     }
   };
 
+  // Selecciona una orden encontrada por mail y la lleva a la misma vista de
+  // resultado que el QR: de acá en adelante se admite con la lógica existente.
+  const pickMatch = (m: EmailMatch) => {
+    setMatches(null);
+    setScannedToken(m.token);
+    setResult({
+      result: m.result,
+      buyerName: m.buyerName,
+      quantity: m.quantity,
+      admittedCount: m.admittedCount,
+      remaining: m.remaining,
+    });
+  };
+
+  const searchEmail = async () => {
+    const value = email.trim();
+    if (!value || !adminToken) return;
+    setBusy(true);
+    setError(null);
+    setMatches(null);
+    try {
+      const res = await lookupByEmail(adminToken, value);
+      if (res.matches.length === 0) {
+        setError("No hay compras pagas con ese mail.");
+      } else if (res.matches.length === 1) {
+        pickMatch(res.matches[0]);
+      } else {
+        setMatches(res.matches);
+      }
+    } catch (e) {
+      if (e instanceof Error && e.message === "UNAUTHORIZED") logout();
+      else setError("No se pudo buscar. Reintentá.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const rescan = () => {
     setResult(null);
     setScannedToken(null);
     setError(null);
+    setEmailOpen(false);
+    setEmail("");
+    setMatches(null);
   };
 
   // La puerta no tiene login propio: se entra desde el menú de staff (que ya
@@ -133,6 +183,60 @@ export function DoorScanner() {
         <div id={READER_ID} className={styles.reader} />
         {busy && <p className={styles.hint}>Leyendo…</p>}
         {error && <p className={styles.error}>{error}</p>}
+
+        <div className={styles.emailFallback}>
+          {!emailOpen ? (
+            <button
+              type="button"
+              className={styles.emailToggle}
+              onClick={() => {
+                setEmailOpen(true);
+                setError(null);
+              }}
+            >
+              ¿No tenés el QR? Ingresar por mail
+            </button>
+          ) : (
+            <div className={styles.emailBox}>
+              <input
+                className={styles.emailInput}
+                type="email"
+                placeholder="Mail de la compra"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && searchEmail()}
+                autoFocus
+              />
+              <button
+                type="button"
+                className={styles.emailSearch}
+                disabled={busy}
+                onClick={searchEmail}
+              >
+                Buscar
+              </button>
+            </div>
+          )}
+
+          {matches && (
+            <ul className={styles.matchList}>
+              {matches.map((m) => (
+                <li key={m.token}>
+                  <button
+                    type="button"
+                    className={styles.matchItem}
+                    onClick={() => pickMatch(m)}
+                  >
+                    <span className={styles.matchName}>{m.buyerName}</span>
+                    <span className={styles.matchMeta}>
+                      {m.quantity} entrada(s) · faltan {m.remaining}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       {result && (

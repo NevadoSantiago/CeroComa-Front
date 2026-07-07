@@ -37,6 +37,86 @@
   margin: 0.5rem 0;
 }
 
+/* --- Ingreso manual por mail (fallback sin QR) --- */
+.emailFallback {
+  margin-top: 1rem;
+}
+.emailToggle {
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-rule);
+  padding-bottom: 2px;
+}
+.emailBox {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+.emailInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  background: transparent;
+  padding: 0.5rem 0;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  color: var(--color-ink);
+}
+.emailInput:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+.emailSearch {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  padding: 0 1.1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.emailSearch:disabled {
+  opacity: 0.6;
+}
+/* Cuando el mail matchea más de una orden, se elige cuál. */
+.matchList {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.matchItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-align: left;
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  background: transparent;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.matchName {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.matchMeta {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
 /* --- Resultado --- */
 .result {
   width: 100%;

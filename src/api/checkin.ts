@@ -37,3 +37,38 @@ export function lookup(adminToken: string, token: string) {
 export function admit(adminToken: string, token: string, count: number) {
   return post("/api/checkin/admit", adminToken, { token, count });
 }
+
+/** Una orden paga encontrada por el mail de compra (ingreso manual sin QR). */
+export interface EmailMatch {
+  token: string; // mismo token firmado del QR: se admite con admit()
+  buyerName: string;
+  quantity: number;
+  admittedCount: number;
+  remaining: number;
+  result: string; // OK | FULL
+}
+
+export interface EmailLookupResponse {
+  matches: EmailMatch[];
+}
+
+export async function lookupByEmail(
+  adminToken: string,
+  email: string,
+): Promise<EmailLookupResponse> {
+  const res = await fetch(`${API_URL}/api/checkin/lookup-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${adminToken}`,
+    },
+    body: JSON.stringify({ email }),
+  });
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}`);
+  }
+  return res.json();
+}
