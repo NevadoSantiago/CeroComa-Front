@@ -33,6 +33,13 @@ const GAP = 12;
  * La cantidad de columnas se deriva de la cantidad de imágenes para que el plano
  * quede aproximadamente cuadrado — que haya para arrastrar tanto en horizontal
  * como en vertical.
+ *
+ * Para que el plano sea TOROIDAL sin costuras negras, el rectángulo tiene que ser
+ * periódico: al repetirlo, el borde de abajo debe encajar con el de arriba. El
+ * masonry deja las columnas a alturas distintas (borde inferior irregular), así
+ * que después de armarlo igualamos cada columna a la más alta escalándola. Con
+ * `object-fit: cover` en el item, escalar el alto no deforma la foto: solo recorta
+ * un poco más o menos. Resultado: sin huecos, sin distorsión.
  */
 export function packCollage(images: GalleryImage[], columns?: number): Collage {
   if (images.length === 0) {
@@ -41,7 +48,7 @@ export function packCollage(images: GalleryImage[], columns?: number): Collage {
 
   const cols = Math.max(1, columns ?? Math.round(Math.sqrt(images.length) * 1.3));
   const heights = new Array<number>(cols).fill(0);
-  const items: PlacedImage[] = [];
+  const byColumn: PlacedImage[][] = Array.from({ length: cols }, () => []);
 
   for (const img of images) {
     const ratio = img.height / img.width;
@@ -54,11 +61,30 @@ export function packCollage(images: GalleryImage[], columns?: number): Collage {
 
     const x = target * (COLUMN_WIDTH + GAP);
     const y = heights[target];
-    items.push({ id: img.id, url: img.url, x, y, w: COLUMN_WIDTH, h });
+    byColumn[target].push({ id: img.id, url: img.url, x, y, w: COLUMN_WIDTH, h });
     heights[target] = y + h + GAP;
   }
 
-  const width = cols * (COLUMN_WIDTH + GAP) - GAP;
-  const height = Math.max(...heights) - GAP;
+  // Borde inferior real de cada columna (sin el gap final del acumulador).
+  const bottoms = heights.map((hh) => hh - GAP);
+  const targetBottom = Math.max(
+    ...bottoms.filter((_, c) => byColumn[c].length > 0),
+  );
+
+  // Igualamos: cada columna escala para terminar exactamente en targetBottom.
+  const items: PlacedImage[] = [];
+  for (let c = 0; c < cols; c++) {
+    const list = byColumn[c];
+    if (list.length === 0) continue;
+    const s = targetBottom / bottoms[c];
+    for (const it of list) {
+      items.push({ ...it, y: Math.round(it.y * s), h: Math.round(it.h * s) });
+    }
+  }
+
+  // Gap final en ambos ejes → la costura del tile repite el mismo aire de 12px
+  // que hay entre imágenes, en vez de un salto o un vacío.
+  const width = cols * (COLUMN_WIDTH + GAP);
+  const height = targetBottom + GAP;
   return { items, width, height };
 }
