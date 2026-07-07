@@ -146,10 +146,19 @@ export function DoorScanner() {
           {paidOrder && (
             <>
               <div className={styles.buyer}>{result.buyerName}</div>
-              <div className={styles.counts}>
-                Grupo de <strong>{result.quantity}</strong> · ingresaron{" "}
-                <strong>{result.admittedCount}</strong> · faltan{" "}
-                <strong>{result.remaining}</strong>
+              <div className={styles.stats}>
+                <div className={styles.stat}>
+                  <span className={styles.statNum}>{result.quantity}</span>
+                  <span className={styles.statLabel}>Total</span>
+                </div>
+                <div className={styles.stat}>
+                  <span className={styles.statNum}>{result.admittedCount}</span>
+                  <span className={styles.statLabel}>Entraron</span>
+                </div>
+                <div className={`${styles.stat} ${styles.statHighlight}`}>
+                  <span className={styles.statNum}>{result.remaining}</span>
+                  <span className={styles.statLabel}>Faltan</span>
+                </div>
               </div>
 
               {result.remaining > 0 ? (
