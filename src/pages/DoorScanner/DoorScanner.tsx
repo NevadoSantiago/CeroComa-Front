@@ -1,5 +1,5 @@
-import { useEffect, useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Html5Qrcode } from "html5-qrcode";
 import { admit, lookup, type CheckinResponse } from "../../api/checkin";
 import styles from "./DoorScanner.module.css";
@@ -8,16 +8,18 @@ const TOKEN_KEY = "cerocoma_admin_token"; // misma contraseña que el panel
 const READER_ID = "qr-reader";
 
 export function DoorScanner() {
+  const navigate = useNavigate();
   const [adminToken, setAdminToken] = useState<string | null>(() =>
     sessionStorage.getItem(TOKEN_KEY),
   );
-  const [password, setPassword] = useState("");
 
   const [scannedToken, setScannedToken] = useState<string | null>(null);
   const [result, setResult] = useState<CheckinResponse | null>(null);
   const [count, setCount] = useState(1);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Tras admitir: muestra el tilde y vuelve al menú de staff.
+  const [admitted, setAdmitted] = useState(false);
 
   const logout = () => {
     sessionStorage.removeItem(TOKEN_KEY);
@@ -66,20 +68,20 @@ export function DoorScanner() {
     };
   }, [adminToken, result]);
 
-  const onLogin = (e: FormEvent) => {
-    e.preventDefault();
-    sessionStorage.setItem(TOKEN_KEY, password);
-    setAdminToken(password);
-    setPassword("");
-  };
+  // Cuando se confirma la admisión, dejamos ver el tilde y volvemos al menú.
+  useEffect(() => {
+    if (!admitted) return;
+    const t = setTimeout(() => navigate("/staff"), 1400);
+    return () => clearTimeout(t);
+  }, [admitted, navigate]);
 
   const doAdmit = async () => {
     if (!scannedToken || !adminToken) return;
     setBusy(true);
     setError(null);
     try {
-      setResult(await admit(adminToken, scannedToken, count));
-      setCount(1);
+      await admit(adminToken, scannedToken, count);
+      setAdmitted(true);
     } catch (e) {
       if (e instanceof Error && e.message === "UNAUTHORIZED") logout();
       else setError("No se pudo admitir. Reintentá.");
@@ -94,23 +96,22 @@ export function DoorScanner() {
     setError(null);
   };
 
+  // La puerta no tiene login propio: se entra desde el menú de staff (que ya
+  // pidió la contraseña). Sin sesión, al menú a loguearse.
   if (!adminToken) {
+    return <Navigate to="/staff" replace />;
+  }
+
+  if (admitted) {
     return (
-      <main className={styles.login}>
-        <h1 className={styles.title}>Puerta · CERO COMA</h1>
-        <form onSubmit={onLogin} className={styles.loginForm}>
-          <input
-            className={styles.input}
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoFocus
-          />
-          <button className={styles.cta} type="submit">
-            Entrar
-          </button>
-        </form>
+      <main className={styles.page}>
+        <div className={styles.success}>
+          <svg className={styles.check} viewBox="0 0 52 52" aria-hidden="true">
+            <circle className={styles.checkCircle} cx="26" cy="26" r="24" fill="none" />
+            <path className={styles.checkMark} fill="none" d="M14 27l8 8 16-16" />
+          </svg>
+          <p className={styles.successText}>Ingresaron {count}</p>
+        </div>
       </main>
     );
   }
