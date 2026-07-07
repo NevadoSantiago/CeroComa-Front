@@ -8,15 +8,19 @@
   padding: 1.5rem var(--edge);
 }
 
-.title {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+/* Logo como wordmark: lleva al inicio. */
+.logoLink {
+  display: block;
+  transition: opacity 0.2s ease;
 }
-.sub {
-  margin: 0;
-  color: var(--color-muted);
+.logoLink:hover {
+  opacity: 0.7;
+}
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
 }
 
 .form {
@@ -70,6 +74,32 @@
   cursor: pointer;
   border-bottom: 1px solid var(--color-rule);
   padding-bottom: 2px;
+}
+
+.passwordField {
+  position: relative;
+  width: 100%;
+}
+.passwordField .input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+/* Botón mostrar/ocultar contraseña, dentro del campo. */
+.toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.toggle:hover {
+  color: var(--color-ink);
 }
 
 .input {
