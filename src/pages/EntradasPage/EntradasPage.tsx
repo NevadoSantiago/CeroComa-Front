@@ -9,8 +9,7 @@ const EVENT = {
   place: "Laprida 2400 · Florida",
 };
 
-// PLACEHOLDER: precio real a confirmar con el cliente.
-const TICKET = { label: "Entrada general", price: 8000 };
+const TICKET = { label: "Entrada general (Con consumición)", price: 18000 };
 const MAX_QTY = 10;
 
 const ars = new Intl.NumberFormat("es-AR", {
@@ -23,6 +22,7 @@ export function EntradasPage() {
   const [qty, setQty] = useState(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [band, setBand] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,6 +37,7 @@ export function EntradasPage() {
         buyerName: name,
         buyerEmail: email,
         quantity: qty,
+        preferredBand: band.trim() || undefined,
       });
       // Redirige al checkout de Mercado Pago.
       window.location.href = initPoint;
@@ -121,6 +122,18 @@ export function EntradasPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="email"
+          />
+        </label>
+
+        <label className={styles.field}>
+          <span className={styles.fieldLabel}>Banda</span>
+          <input
+            className={styles.input}
+            type="text"
+            value={band}
+            onChange={(e) => setBand(e.target.value)}
+            placeholder="A quien vas a ver? (opcional)"
+            maxLength={120}
           />
         </label>
 

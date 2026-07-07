@@ -4,6 +4,7 @@ export interface CreateOrderPayload {
   buyerName: string;
   buyerEmail: string;
   quantity: number;
+  preferredBand?: string;
 }
 
 export interface CreateOrderResponse {

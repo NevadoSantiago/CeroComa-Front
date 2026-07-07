@@ -128,7 +128,6 @@
   align-items: baseline;
   justify-content: space-between;
   padding-top: 1rem;
-  border-top: 1px solid var(--color-rule);
   font-size: 1.125rem;
 }
 .totalValue {
