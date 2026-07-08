@@ -5,8 +5,8 @@ import styles from "./EntradasPage.module.css";
 
 const EVENT = {
   date: "Sábado 18.07.2026",
-  time: "Desde las 19 h",
-  place: "Laprida 2400 · Florida",
+  time: "Desde las 20 h",
+  place: "Laprida 2453 · Florida",
 };
 
 const TICKET = { label: "Entrada general (Con consumición)", price: 18000 };
