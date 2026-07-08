@@ -3,10 +3,11 @@ import styles from "./PagoResultado.module.css";
 
 type Status = "exito" | "pendiente" | "error";
 
-const COPY: Record<Status, { title: string; text: string }> = {
+const COPY: Record<Status, { title: string; text: string; note?: string }> = {
   exito: {
-    title: "¡Gracias!",
-    text: "Tu pago se está confirmando. Te enviamos el QR por mail apenas se acredite.",
+    title: "¡Pago confirmado!",
+    text: "Tu pago se realizó con éxito. Tu entrada con el QR va a llegar a tu mail en unos minutos.",
+    note: "¿No lo ves? Revisá la casilla de spam o promociones.",
   },
   pendiente: {
     title: "Pago pendiente",
@@ -22,8 +23,12 @@ export function PagoResultado({ status }: { status: Status }) {
   const copy = COPY[status];
   return (
     <main className={styles.page}>
+      <Link to="/" className={styles.logoLink} aria-label="Ir al inicio">
+        <img className={styles.logo} src="/logo.svg" alt="Cero Coma" />
+      </Link>
       <h1 className={styles.title}>{copy.title}</h1>
       <p className={styles.text}>{copy.text}</p>
+      {copy.note && <p className={styles.note}>{copy.note}</p>}
       <div className={styles.actions}>
         {status === "error" && (
           <Link to="/entradas" className={styles.primary}>

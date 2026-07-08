@@ -1,12 +1,28 @@
 .page {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   min-height: 100svh;
   max-width: var(--maxw);
   margin-inline: auto;
   padding: 1.5rem var(--edge);
+  text-align: center;
+}
+
+.logoLink {
+  display: block;
+  margin-bottom: 2.5rem;
+  transition: opacity 0.2s ease;
+}
+.logoLink:hover {
+  opacity: 0.7;
+}
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  height: auto;
 }
 
 .title {
@@ -16,13 +32,25 @@
 }
 
 .text {
-  margin: 0 0 2rem;
+  margin: 0 0 1.25rem;
   color: var(--color-muted);
+  max-width: 36ch;
+}
+
+/* Nota de spam: un recuadro sutil para que no se pase por alto. */
+.note {
+  margin: 0 0 2rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 }
 
