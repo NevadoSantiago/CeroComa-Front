@@ -3,7 +3,7 @@
 // Los originales quedan intactos (para un futuro lightbox con la foto grande).
 //
 // Reejecutar cuando cambien las imágenes:  npm run gen:gallery
-import { readdirSync, mkdirSync, writeFileSync } from "node:fs";
+import { readdirSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join, extname, basename, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -20,6 +20,9 @@ const files = readdirSync(SRC_DIR)
   .filter((f) => /\.(png|jpe?g|webp)$/i.test(f))
   .sort();
 
+// Regen limpio: borramos los thumbs viejos para que la carpeta sea un espejo
+// exacto del origen (sin huérfanos de fotos que se sacaron o renombraron).
+rmSync(THUMB_DIR, { recursive: true, force: true });
 mkdirSync(THUMB_DIR, { recursive: true });
 
 const manifest = [];

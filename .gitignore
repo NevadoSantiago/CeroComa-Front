@@ -14,6 +14,7 @@ dist-ssr
 
 # Fotos originales / descargas: redundantes con gallery-thumbs, pesan GB.
 # NO van al repo ni al deploy. Solo gallery-thumbs (lo que usa la app) se versiona.
+public/gallery/
 public/gallery1/
 public/gallery2/
 public/o,4/
