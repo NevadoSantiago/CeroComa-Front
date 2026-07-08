@@ -17,7 +17,6 @@ function App() {
       <Route path="/menu" element={<MenuPage />} />
       <Route path="/lineup" element={<PlaceholderPage title="Lineup" />} />
       <Route path="/galeria" element={<GaleriaPage />} />
-      <Route path="/about" element={<PlaceholderPage title="About" />} />
       <Route path="/pago/exito" element={<PagoResultado status="exito" />} />
       <Route path="/pago/pendiente" element={<PagoResultado status="pendiente" />} />
       <Route path="/pago/error" element={<PagoResultado status="error" />} />

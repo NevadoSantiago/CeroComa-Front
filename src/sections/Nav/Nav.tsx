@@ -6,7 +6,6 @@ const ITEMS = [
   { to: "/menu", label: "Menú" },
   { to: "/lineup", label: "Lineup" },
   { to: "/galeria", label: "Galería" },
-  { to: "/about", label: "About" },
 ];
 
 export function Nav() {
