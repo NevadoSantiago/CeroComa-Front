@@ -1,0 +1,12 @@
+{
+  // Deploy del front como Worker con Static Assets (Cloudflare Workers Builds).
+  // El build (npm run build) genera dist/, y wrangler sube esa carpeta.
+  "name": "cerocoma",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "./dist",
+    // SPA: cualquier ruta que no matchee un archivo (ej. /galeria, /entradas,
+    // /pago/exito) devuelve index.html para que react-router la resuelva.
+    "not_found_handling": "single-page-application"
+  }
+}
