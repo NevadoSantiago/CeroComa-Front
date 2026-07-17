@@ -7,7 +7,7 @@ import { AdminPage } from "./pages/AdminPage/AdminPage";
 import { DoorScanner } from "./pages/DoorScanner/DoorScanner";
 import { StaffHome } from "./pages/StaffHome/StaffHome";
 import { PagoResultado } from "./pages/PagoResultado/PagoResultado";
-import { PlaceholderPage } from "./pages/PlaceholderPage/PlaceholderPage";
+import { LineUpPage } from "./pages/LineUpPage/LineUpPage";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/entradas" element={<EntradasPage />} />
       <Route path="/menu" element={<MenuPage />} />
-      <Route path="/lineup" element={<PlaceholderPage title="Lineup" />} />
+      <Route path="/lineup" element={<LineUpPage />} />
       <Route path="/galeria" element={<GaleriaPage />} />
       <Route path="/pago/exito" element={<PagoResultado status="exito" />} />
       <Route path="/pago/pendiente" element={<PagoResultado status="pendiente" />} />

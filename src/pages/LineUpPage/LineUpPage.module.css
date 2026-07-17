@@ -1,0 +1,238 @@
+/* Mobile-first: la página es un carrusel vertical con snap — portada (postal)
+   y un pase de backstage por pantalla, colgado de un cordón. */
+.page {
+  /* Contenedor clavado: fijo al viewport, anclado arriba y con altura svh
+     (SIN bottom: 0, que lo haría seguir a la barra). El documento no scrollea,
+     así que el navegador no tiene motivo para esconder la barra; y si igual lo
+     hace, la geometría no cambia y el snap nunca se reacomoda solo. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.back {
+  position: fixed;
+  top: 1.25rem;
+  left: var(--edge);
+  z-index: 10;
+  font-size: 0.875rem;
+  letter-spacing: var(--tracking-wordmark);
+}
+.back:hover {
+  color: var(--color-accent);
+}
+
+.intro {
+  /* svh (fijo) a propósito: con dvh las secciones cambian de alto cuando la
+     barra del navegador se esconde y el snap se reacomoda a los saltos. El
+     resto de pantalla que queda al ocultarse la barra es invisible (fondo
+     crema + cordón con fade). */
+  min-height: 100vh;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3.5rem var(--edge) 1.5rem;
+}
+
+.postcard {
+  width: auto;
+  max-width: min(100%, 420px);
+  max-height: 72svh;
+  border-radius: 10px;
+}
+
+.hint {
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.slide {
+  min-height: 100vh;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* El grupo riel + cordón + pase queda centrado en la pantalla. */
+  justify-content: center;
+  padding: 0 var(--edge);
+}
+
+/* Riel horizontal del que se engancha cada pase: autocontenido en su
+   pantalla, así nunca asoma la soga de la banda anterior o siguiente. */
+.rail {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 2px;
+  background: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
+/* Cordón corto entre el riel y el clip de la credencial. */
+.cord {
+  flex: 0 0 auto;
+  height: 3rem;
+  width: 2px;
+  position: relative;
+  background: color-mix(in srgb, var(--color-ink) 30%, transparent);
+}
+
+/* Nudo donde el cordón se ata al riel. */
+.cord::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-ink);
+}
+
+/* Wrapper estático: define el tamaño y el pivote de la rotación. */
+.hanger {
+  width: min(100%, 420px, 64svh); /* 4:5 → la altura nunca pasa de ~80svh */
+}
+
+.pass {
+  display: block;
+  transform-origin: 50% 0; /* el clip de la credencial */
+  touch-action: pan-y; /* vertical scrollea, horizontal hamaca */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  will-change: transform;
+}
+.pass:active {
+  cursor: grabbing;
+}
+.pass img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Indicador lateral de horarios (solo mobile). */
+.times {
+  position: fixed;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.time {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.timeActive {
+  composes: time;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint {
+    animation: none;
+  }
+}
+
+/* Escritorio: sin snap — postal como portada y los tres pases colgados
+   en fila, cada uno con su cordón y su física. */
+@media (min-width: 900px) {
+  .page {
+    position: static;
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .intro {
+    min-height: auto;
+    padding: 5rem var(--edge) 1rem;
+  }
+
+  .postcard {
+    max-width: 400px;
+    max-height: none;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .bands {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: 1rem var(--edge) 5rem;
+  }
+
+  /* Riel del que cuelgan los cordones (tendedero). */
+  .bands::before {
+    content: "";
+    position: absolute;
+    top: calc(1rem - 1px);
+    left: var(--edge);
+    right: var(--edge);
+    height: 2px;
+    background: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  }
+
+  .slide {
+    min-height: auto;
+    flex: 1;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  /* En escritorio el riel es uno solo compartido (.bands::before). */
+  .rail {
+    display: none;
+  }
+
+  .cord {
+    height: 3.5rem;
+  }
+
+  .hanger {
+    width: 100%;
+  }
+
+  .times {
+    display: none;
+  }
+}

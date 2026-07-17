@@ -20,6 +20,10 @@ public/gallery2/
 public/o,4/
 public/*.zip
 
+# Originales del line up (solo la carpeta de la raíz — anclado para no
+# ignorar public/lineup/, que es lo que usa la app): los .webp sí van.
+/LineUp/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
