@@ -9,7 +9,7 @@ const EVENT = {
   place: "Laprida 2453 · Florida",
 };
 
-const TICKET = { label: "Entrada general (Con consumición)", price: 18000 };
+const TICKET = { label: "Entrada general (Con consumición)", price: 20000 };
 const MAX_QTY = 10;
 
 const ars = new Intl.NumberFormat("es-AR", {
